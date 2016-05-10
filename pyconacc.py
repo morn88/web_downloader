@@ -11,7 +11,7 @@ def connect(url):
         resp = urllib.request.urlopen(req)
         respData = resp.read()
 
-        saveFile = open('withHeaders.txt', 'w')
+        saveFile = open('links.txt', 'w')
         saveFile.write(str(respData))
         saveFile.close()
     except Exception as e:
@@ -22,7 +22,7 @@ def download(url):
     url = url[0:-5].replace('res', 'src') + '/'
 
 
-    f = open('withHeaders.txt', 'r')
+    f = open('links.txt', 'r')
     string = f.read()
     match = r'href="(.*?)"'
     need = re.findall(match, string)
@@ -43,7 +43,9 @@ def download(url):
         for i in tqdm.tqdm(downl_set):
             fileName = i.split('/')
             urllib.request.urlretrieve(i, fileName[-1])
-
+    else:
+        print('Нет новых файлов')
 if __name__ == '__main__':
-    connect('https://2ch.hk/b/res/126102702.html')
-    download('https://2ch.hk/b/res/126102702.html')
+    url = 'https://2ch.hk/b/res/126102702.html'
+    connect(url)
+    download(url)
