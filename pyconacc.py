@@ -5,10 +5,8 @@ import os
 import tqdm
 
 
-def connect():
+def connect(url):
     try:
-        url = 'https://2ch.hk/b/res/126075791.html'
-
         req = urllib.request.Request(url)
         resp = urllib.request.urlopen(req)
         respData = resp.read()
@@ -20,7 +18,10 @@ def connect():
         print(str(e))
 
 
-def download():
+def download(url):
+    url = url[0:-5].replace('res', 'src') + '/'
+
+
     f = open('withHeaders.txt', 'r')
     string = f.read()
     match = r'href="(.*?)"'
@@ -32,14 +33,17 @@ def download():
             st_list.append(st)
 
     st_set = set(st_list)
-    done_set = os.listdir('./done_webm')
-    st_set = st_set.difference(done_set)
-    if len(st_set) != 0:
+    file_list = os.listdir('./done_webm')
+    done_list = [url + i for i in file_list]
+
+    done_set = set(done_list)
+    downl_set = st_set.difference(done_set)
+    if len(downl_set) != 0:
         os.chdir('./done_webm')
-        for i in tqdm.tqdm(st_set):
+        for i in tqdm.tqdm(downl_set):
             fileName = i.split('/')
             urllib.request.urlretrieve(i, fileName[-1])
 
 if __name__ == '__main__':
-    connect()
-    download()
+    connect('https://2ch.hk/b/res/126102702.html')
+    download('https://2ch.hk/b/res/126102702.html')
