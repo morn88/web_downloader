@@ -3,6 +3,7 @@ import urllib.request
 import re
 import os
 import tqdm
+import sys
 
 
 def connect(url):
@@ -20,7 +21,7 @@ def connect(url):
 
 def download(url):
     url = url[0:-5].replace('res', 'src') + '/'
-
+    url_path = url.split('/')
 
     f = open('links.txt', 'r')
     string = f.read()
@@ -29,7 +30,7 @@ def download(url):
     st_list = []
     for st in need:
         if st.endswith('.webm'):
-            st = st.replace('..', 'https://2ch.hk/b')
+            st = st.replace('..', '/'.join(url_path[0:-3]))
             st_list.append(st)
 
     st_set = set(st_list)
@@ -46,6 +47,12 @@ def download(url):
     else:
         print('Нет новых файлов')
 if __name__ == '__main__':
-    url = 'https://2ch.hk/b/res/126102702.html'
-    connect(url)
-    download(url)
+    if len(sys.argv) > 1:
+        url = sys.argv[1]
+        connect(url)
+        download(url)
+    else:
+        print('Укажите ссылку на тред')
+        url = 'https://2ch.hk/hc/res/173071.html'
+        connect(url)
+        download(url)
