@@ -5,6 +5,13 @@ import os
 import tqdm
 import sys
 
+def check_folder():
+    folder = 'done_webm'
+    try:
+        os.mkdir(folder)
+        print('Папка созданна')
+    except FileExistsError:
+        print('Папка готова')
 
 def connect(url):
     try:
@@ -47,6 +54,9 @@ def download(url):
     else:
         print('Нет новых файлов')
 if __name__ == '__main__':
+
+    check_folder()
+
     if len(sys.argv) > 1:
         url = sys.argv[1]
         connect(url)
