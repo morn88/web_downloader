@@ -19,9 +19,9 @@ def connect(url):
         resp = urllib.request.urlopen(req)
         respData = resp.read()
 
-        saveFile = open('links.txt', 'w')
-        saveFile.write(str(respData))
-        saveFile.close()
+        with open('links.txt', 'w') as saveFile:
+            saveFile.write(str(respData))
+
     except Exception as e:
         print(str(e))
 
@@ -30,8 +30,9 @@ def download(url):
     url = url[0:-5].replace('res', 'src') + '/'
     url_path = url.split('/')
 
-    f = open('links.txt', 'r')
-    string = f.read()
+    with open('links.txt') as file:
+        string = file.read()
+
     match = r'href="(.*?)"'
     need = re.findall(match, string)
     st_list = []
