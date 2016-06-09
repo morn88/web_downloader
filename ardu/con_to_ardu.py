@@ -23,7 +23,7 @@ while True:
     print("Для формы №:", form_number)
     print("Параметры натяжения:", line_s)
     print("Среднее натяжение:", avr)
-    bw.base_update(form_number, int(avr), line_s_str)
+    bw.base_update(form_number, avr, line_s_str)
     ys = line_s
     xs = [x for x in range(len(line_s))]
     plt.plot(xs, ys)
